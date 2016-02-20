@@ -5,7 +5,7 @@
     using Common.Constants;
     using Web.Controllers;
 
-    [Authorize(Roles = DatabaseSeedConstants.AdministratorRoleName)]
+    [Authorize(Roles = GlobalRolesConstants.AdministratorRoleName)]
     public class AdministrationController : BaseController
     {
     }

@@ -17,6 +17,18 @@
         {
         }
 
+        public IDbSet<Artist> Artists { get; set; }
+
+        public IDbSet<User> Users { get; set; }
+
+        public IDbSet<City> Cities { get; set; }
+
+        public IDbSet<Concert> Concerts { get; set; }
+
+        public IDbSet<Genre> Genres { get; set; }
+
+        public IDbSet<Song> Songs { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

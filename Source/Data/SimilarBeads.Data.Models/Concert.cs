@@ -7,8 +7,7 @@
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        public int CityId { get; set; }
+        public int? CityId { get; set; }
 
         public virtual City City { get; set; }
 

@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace SimilarBeads.Data.Models
+﻿namespace SimilarBeads.Data.Models
 {
+    using System.Collections.Generic;
+
     public class User : ApplicationUser
     {
         private ICollection<Artist> favourites;
