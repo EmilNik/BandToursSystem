@@ -7,7 +7,7 @@
     using SimilarBeads.Data.Common.Models;
 
     // TODO: Why BaseModel<int> instead BaseModel<TKey>?
-    public class DbRepository<T> : IDbRepository<T>
+    public class DbRepository<T> : IRepository<T>
         where T : BaseModel<int>
     {
         public DbRepository(DbContext context)
@@ -56,7 +56,7 @@
             this.DbSet.Remove(entity);
         }
 
-        public void Save()
+        public void SaveChanges()
         {
             this.Context.SaveChanges();
         }
