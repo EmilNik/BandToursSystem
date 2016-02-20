@@ -2,10 +2,10 @@
 {
     using System.Web.Mvc;
 
-    using SimilarBeads.Common;
-    using SimilarBeads.Web.Controllers;
+    using Common.Constants;
+    using Web.Controllers;
 
-    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+    [Authorize(Roles = DatabaseSeedConstants.AdministratorRoleName)]
     public class AdministrationController : BaseController
     {
     }
