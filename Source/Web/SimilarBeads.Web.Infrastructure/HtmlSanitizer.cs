@@ -1,7 +1,5 @@
 ﻿namespace SimilarBeads.Web.Infrastructure
 {
-    using Ganss.XSS;
-
     public class HtmlSanitizer : ISanitizer
     {
         public string Sanitize(string html)
