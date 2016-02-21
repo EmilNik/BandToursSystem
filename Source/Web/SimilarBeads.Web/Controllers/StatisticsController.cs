@@ -34,5 +34,11 @@
 
             return this.Json(new { Statistics = statistics }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public ActionResult Charts()
+        {
+            return this.View();
+        }
     }
 }

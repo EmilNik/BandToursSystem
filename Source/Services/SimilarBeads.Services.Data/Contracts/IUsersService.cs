@@ -16,5 +16,7 @@
         string UserIdByUsername(string username);
 
         bool UserIsArtist(string username);
+
+        bool UserIsAdmin(string username);
     }
 }

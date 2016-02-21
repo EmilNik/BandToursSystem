@@ -31,6 +31,8 @@
 
         public bool IsArtist { get; set; }
 
+        public bool IsAdmin { get; set; }
+
         public string AvatarUrl { get; set; }
 
         public virtual ICollection<User> Favourites

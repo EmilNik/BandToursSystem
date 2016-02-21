@@ -202,6 +202,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseControllers\BaseAuthorizationController.cs" />
     <Compile Include="Controllers\BaseControllers\BaseController.cs" />
+    <Compile Include="Controllers\ConcertsController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -295,6 +296,8 @@
     <Content Include="Scripts\jquery-2.2.0.min.map" />
     <Content Include="Views\Home\_IndexStatistics.cshtml" />
     <Content Include="Views\Error\HttpError.cshtml" />
+    <Content Include="Views\Statistics\Charts.cshtml" />
+    <Content Include="Views\Concerts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

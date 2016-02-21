@@ -4,7 +4,7 @@
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     using System.Linq;
-    
+
     public class DbRepository<T> : IRepository<T>
         where T : class
     {
@@ -55,11 +55,6 @@
                 this.DbSet.Attach(entity);
                 this.DbSet.Remove(entity);
             }
-        }
-
-        public void HardDelete(T entity)
-        {
-            this.DbSet.Remove(entity);
         }
 
         public void SaveChanges()

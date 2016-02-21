@@ -1,9 +1,7 @@
 ﻿namespace SimilarBeads.Services.Data
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Threading.Tasks;
 
     using SimilarBeads.Data.Common;
     using SimilarBeads.Data.Models;
@@ -32,6 +30,15 @@
                 .All()
                 .Where(u => u.Name == username)
                 .Select(u => u.IsArtist)
+                .FirstOrDefault();
+        }
+
+        public bool UserIsAdmin(string username)
+        {
+            return this.users
+                .All()
+                .Where(u => u.Name == username)
+                .Select(u => u.IsAdmin)
                 .FirstOrDefault();
         }
 
