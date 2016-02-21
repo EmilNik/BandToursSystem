@@ -14,7 +14,7 @@
             this.songs = songs;
         }
 
-        public int Count()
+        public int GetCount()
         {
             var count = this.songs.All().Count();
             return count;

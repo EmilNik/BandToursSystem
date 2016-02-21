@@ -14,7 +14,7 @@
             this.concerts = concerts;
         }
 
-        public int Count()
+        public int GetCount()
         {
             var count = this.concerts.All().Count();
             return count;

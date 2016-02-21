@@ -2,6 +2,6 @@
 {
     public interface ISongsServices
     {
-        int Count();
+        int GetCount();
     }
 }

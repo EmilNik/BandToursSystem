@@ -1,7 +1,7 @@
 ﻿namespace SimilarBeads.Services.Data
 {
-    interface IConcertsServices
+    public interface IConcertsServices
     {
-        int Count();
+        int GetCount();
     }
 }

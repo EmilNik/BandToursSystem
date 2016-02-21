@@ -14,7 +14,7 @@
             this.users = users;
         }
 
-        public int Count()
+        public int GetCount()
         {
             var count = this.users.All().Count();
             return count;

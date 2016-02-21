@@ -2,6 +2,6 @@
 {
     public interface IUsersServices
     {
-        int Count();
+        int GetCount();
     }
 }
