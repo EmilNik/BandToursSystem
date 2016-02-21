@@ -17,7 +17,7 @@
             this.concerts = concerts;
         }
 
-        [HttpPost]
+        [HttpGet]
         [OutputCache(Duration = 24 * 60 * 60)]
         public ActionResult GetStatistics()
         {
@@ -32,7 +32,7 @@
                 concerts = concertsCount
             };
 
-            return this.Json(new { Statistics = statistics });
+            return this.Json(new { Statistics = statistics }, JsonRequestBehavior.AllowGet);
         }
     }
 }

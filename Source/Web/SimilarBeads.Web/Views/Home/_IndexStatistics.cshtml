@@ -6,7 +6,7 @@
 </div>
 <br />
 <script>
-    $.post("/Statistics/GetStatistics", null,
+    $.get("/Statistics/GetStatistics", null,
         function (data) {
             $('#statistics-users').html(data.Statistics.users);
             $('#statistics-songs').html(data.Statistics.songs);
