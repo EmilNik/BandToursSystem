@@ -8,7 +8,7 @@
 
     using Microsoft.AspNet.Identity.EntityFramework;
 
-    using SimilarBeads.Data.Models;
+    using Models;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
