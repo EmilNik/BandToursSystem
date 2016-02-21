@@ -14,7 +14,7 @@
         [Required]
         public string ArtistId { get; set; }
 
-        public virtual Artist Artist { get; set; }
+        public virtual User Artist { get; set; }
 
         public int NumberOfPlays { get; set; }
 

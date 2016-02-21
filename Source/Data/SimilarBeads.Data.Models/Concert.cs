@@ -14,6 +14,6 @@
         [Required]
         public string ArtistId { get; set; }
 
-        public Artist Artist { get; set; }
+        public User Artist { get; set; }
     }
 }
