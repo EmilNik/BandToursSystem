@@ -5,11 +5,11 @@
     using SimilarBeads.Data.Common;
     using SimilarBeads.Data.Models;
 
-    public class SongsServices : ISongsServices
+    public class SongsService : ISongsService
     {
         private IRepository<Song> songs;
 
-        public SongsServices(IRepository<Song> songs)
+        public SongsService(IRepository<Song> songs)
         {
             this.songs = songs;
         }

@@ -1,6 +1,6 @@
 ﻿namespace SimilarBeads.Services.Data
 {
-    public interface ISongsServices
+    public interface ISongsService
     {
         int GetCount();
     }
