@@ -5,12 +5,12 @@
     using SimilarBeads.Data.Common.Models;
 
     public interface IRepository<T> : IRepository<T, int>
-        where T : BaseModel<int>
+        where T : class
     {
     }
 
     public interface IRepository<T, in TKey>
-        where T : BaseModel<TKey>
+        where T : class
     {
         IQueryable<T> All();
 
