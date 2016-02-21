@@ -17,6 +17,7 @@
             this.concerts = concerts;
         }
 
+        [OutputCache(Duration = 24 * 60 * 60)]
         public ActionResult GetStatistics()
         {
             var usersCount = this.users.GetCount();
