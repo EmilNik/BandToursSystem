@@ -4,12 +4,12 @@
 
     using SimilarBeads.Data.Common.Models;
 
-    public interface IDbRepository<T> : IDbRepository<T, int>
+    public interface IRepository<T> : IRepository<T, int>
         where T : BaseModel<int>
     {
     }
 
-    public interface IDbRepository<T, in TKey>
+    public interface IRepository<T, in TKey>
         where T : BaseModel<TKey>
     {
         IQueryable<T> All();
@@ -24,6 +24,6 @@
 
         void HardDelete(T entity);
 
-        void Save();
+        void SaveChanges();
     }
 }

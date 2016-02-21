@@ -60,15 +60,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationUser.cs" />
-    <Compile Include="Joke.cs" />
-    <Compile Include="JokeCategory.cs" />
+    <Compile Include="City.cs" />
+    <Compile Include="Concert.cs" />
+    <Compile Include="Genre.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Song.cs" />
+    <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\SimilarBeads.Common\SimilarBeads.Common.csproj">
+      <Project>{701f322f-aa01-4ddc-90b6-6935981c1e73}</Project>
+      <Name>SimilarBeads.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SimilarBeads.Data.Common\SimilarBeads.Data.Common.csproj">
       <Project>{edfe3c57-ef5b-4636-9ecc-d0baca6b6379}</Project>
       <Name>SimilarBeads.Data.Common</Name>
