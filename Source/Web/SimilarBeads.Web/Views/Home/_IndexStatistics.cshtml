@@ -1,0 +1,15 @@
+﻿<br />
+<div class="row statistics">
+    <div class="col-md-4 col-sm-12"><h3>Users: <span id="statistics-users"></span></h3></div>
+    <div class="col-md-4 col-sm-12"><h3>Songs: <span id="statistics-songs"></span></h3></div>
+    <div class="col-md-4 col-sm-12"><h3>Concerts: <span id="statistics-concerts"></span></h3></div>
+</div>
+<br />
+<script>
+    $.post("/Statistics/GetStatistics", null,
+        function (data) {
+            $('#statistics-users').html(data.Statistics.users);
+            $('#statistics-songs').html(data.Statistics.songs);
+            $('#statistics-concerts').html(data.Statistics.concerts);
+        })
+</script>

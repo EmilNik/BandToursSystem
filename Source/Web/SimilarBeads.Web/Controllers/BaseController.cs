@@ -10,6 +10,7 @@
         public ICacheService Cache { get; set; }
 
         protected IMapper Mapper
+
         {
             get
             {
