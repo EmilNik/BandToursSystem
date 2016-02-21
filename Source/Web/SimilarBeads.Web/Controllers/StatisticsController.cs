@@ -6,11 +6,11 @@
 
     public class StatisticsController : BaseController
     {
-        private IUsersServices users;
-        private ISongsServices songs;
-        private IConcertsServices concerts;
+        private IUsersService users;
+        private ISongsService songs;
+        private IConcertsService concerts;
 
-        public StatisticsController(IUsersServices users, ISongsServices songs, IConcertsServices concerts)
+        public StatisticsController(IUsersService users, ISongsService songs, IConcertsService concerts)
         {
             this.users = users;
             this.songs = songs;

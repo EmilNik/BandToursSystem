@@ -1,13 +1,14 @@
 ﻿namespace SimilarBeads.Data.Models
 {
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
-    using System.ComponentModel;
+
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class User : IdentityUser
     {
@@ -27,6 +28,10 @@
         public int? CityId { get; set; }
 
         public virtual City City { get; set; }
+
+        public bool IsArtist { get; set; }
+
+        public string AvatarUrl { get; set; }
 
         public virtual ICollection<User> Favourites
         {
