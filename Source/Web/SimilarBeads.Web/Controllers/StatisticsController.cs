@@ -17,6 +17,7 @@
             this.concerts = concerts;
         }
 
+        [HttpPost]
         [OutputCache(Duration = 24 * 60 * 60)]
         public ActionResult GetStatistics()
         {

@@ -2,8 +2,14 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
 
-    public class User : ApplicationUser
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using System.ComponentModel;
+    // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
+    public class User : IdentityUser
     {
         private ICollection<Song> songs;
         private ICollection<Concert> concerts;
@@ -18,7 +24,7 @@
             this.genres = new HashSet<Genre>();
         }
 
-        public int CityId { get; set; }
+        public int? CityId { get; set; }
 
         public virtual City City { get; set; }
 
@@ -29,15 +35,14 @@
         }
 
         // Artists
-        [Required]
         [MaxLength(30)]
         public string Name { get; set; }
 
-        [Required]
         [MaxLength(1000)]
         public string Description { get; set; }
 
-        public int Subscribers { get; set; }
+        [DefaultValue(0)]
+        public int? Subscribers { get; set; }
 
         public virtual ICollection<Genre> Genres
         {
@@ -55,6 +60,15 @@
         {
             get { return this.concerts; }
             set { this.concerts = value; }
+        }
+
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
+        {
+            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
+            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
+
+            // Add custom user claims here
+            return userIdentity;
         }
     }
 }

@@ -2,8 +2,6 @@
 {
     using System.Linq;
 
-    using SimilarBeads.Data.Common.Models;
-
     public interface IRepository<T> : IRepository<T, int>
         where T : class
     {

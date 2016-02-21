@@ -2,13 +2,11 @@
 {
     using System;
     using System.Data.Entity;
+    using System.Data.Entity.Infrastructure;
     using System.Linq;
-
-    using SimilarBeads.Data.Common.Models;
-
-    // TODO: Why BaseModel<int> instead BaseModel<TKey>?
+    
     public class DbRepository<T> : IRepository<T>
-        where T : BaseModel<int>
+        where T : class
     {
         public DbRepository(DbContext context)
         {
@@ -27,7 +25,7 @@
 
         public IQueryable<T> All()
         {
-            return this.DbSet.Where(x => !x.IsDeleted);
+            return this.DbSet.AsQueryable();
         }
 
         public IQueryable<T> AllWithDeleted()
@@ -37,7 +35,7 @@
 
         public T GetById(int id)
         {
-            return this.All().FirstOrDefault(x => x.Id == id);
+            return this.DbSet.Find(id);
         }
 
         public void Add(T entity)
@@ -47,8 +45,16 @@
 
         public void Delete(T entity)
         {
-            entity.IsDeleted = true;
-            entity.DeletedOn = DateTime.Now;
+            DbEntityEntry entry = this.Context.Entry(entity);
+            if (entry.State != EntityState.Deleted)
+            {
+                entry.State = EntityState.Deleted;
+            }
+            else
+            {
+                this.DbSet.Attach(entity);
+                this.DbSet.Remove(entity);
+            }
         }
 
         public void HardDelete(T entity)
