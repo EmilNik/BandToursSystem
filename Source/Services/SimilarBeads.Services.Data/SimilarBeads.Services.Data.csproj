@@ -42,7 +42,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConcertsServices.cs" />
+    <Compile Include="Contracts\IUsersServices.cs" />
+    <Compile Include="Contracts\ISongsServices.cs" />
+    <Compile Include="Contracts\IConcertsServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SongsServices.cs" />
+    <Compile Include="UsersServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Data\SimilarBeads.Data.Common\SimilarBeads.Data.Common.csproj">
