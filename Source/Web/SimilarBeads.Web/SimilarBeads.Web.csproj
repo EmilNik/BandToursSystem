@@ -204,6 +204,7 @@
     <Compile Include="Controllers\BaseControllers\AccountBaseController.cs" />
     <Compile Include="Controllers\BaseControllers\BaseAuthorizationController.cs" />
     <Compile Include="Controllers\BaseControllers\BaseController.cs" />
+    <Compile Include="Controllers\ChartsController.cs" />
     <Compile Include="Controllers\ManageUserController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
