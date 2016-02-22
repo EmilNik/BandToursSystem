@@ -1,10 +1,14 @@
 ﻿namespace SimilarBeads.Web.Controllers
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
 
+    using Common;
     using Data.Models;
+    using Infrastructure.Mapping;
     using Services.Data;
+    using ViewModels.Home;
 
     public class StatisticsController : BaseController
     {
@@ -26,12 +30,14 @@
         public ActionResult GetStatistics()
         {
             var usersCount = this.users.GetCount();
+            var artistCount = this.users.GetArtistsCount();
             var songsCount = this.songs.GetCount();
             var concertsCount = this.concerts.GetCount();
 
             var statistics = new
             {
                 users = usersCount,
+                artists = artistCount,
                 songs = songsCount,
                 concerts = concertsCount
             };

@@ -1,15 +1,18 @@
 ﻿<br />
 <div class="row statistics">
-    <div class="col-md-4 col-sm-12"><h3>Users: <span id="statistics-users"></span></h3></div>
-    <div class="col-md-4 col-sm-12"><h3>Songs: <span id="statistics-songs"></span></h3></div>
-    <div class="col-md-4 col-sm-12"><h3>Concerts: <span id="statistics-concerts"></span></h3></div>
+    <div class="col-md-3 col-sm-12"><h3>Users: <span id="statistics-users"></span></h3></div>
+    <div class="col-md-3 col-sm-12"><h3>Artists: <span id="statistics-artist"></span></h3></div>
+    <div class="col-md-3 col-sm-12"><h3>Songs: <span id="statistics-songs"></span></h3></div>
+    <div class="col-md-3 col-sm-12"><h3>Concerts: <span id="statistics-concerts"></span></h3></div>
 </div>
 <br />
 <script>
     $.get("/Statistics/GetStatistics", null,
         function (data) {
             $('#statistics-users').html(data.Statistics.users);
+            $('#statistics-artist').html(data.Statistics.artists);
             $('#statistics-songs').html(data.Statistics.songs);
             $('#statistics-concerts').html(data.Statistics.concerts);
+            console.log(data)
         })
 </script>

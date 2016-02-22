@@ -9,6 +9,8 @@
     {
         int GetCount();
 
+        int GetArtistsCount();
+
         IQueryable<User> ByUsername(string username);
 
         IEnumerable<string> SearchByUsername(string username);
@@ -20,5 +22,7 @@
         bool UserIsArtist(string username);
 
         bool UserIsAdmin(string username);
+
+        IQueryable<User> GetTopArtists(int numberOfArtists);
     }
 }

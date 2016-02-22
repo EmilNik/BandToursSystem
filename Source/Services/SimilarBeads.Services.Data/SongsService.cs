@@ -1,5 +1,7 @@
 ﻿namespace SimilarBeads.Services.Data
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     using SimilarBeads.Data.Common;
@@ -18,6 +20,14 @@
         {
             var count = this.songs.All().Count();
             return count;
+        }
+
+        public IQueryable<Song> GetTopSongs(int numberOfSongs)
+        {
+            return this.songs
+                .All()
+                .OrderByDescending(x => x.NumberOfPlays)
+                .Take(numberOfSongs);
         }
     }
 }

@@ -61,7 +61,8 @@
                         SecurityStamp = hashedPass,
                         IsArtist = true,
                         CityId = 5,
-                        Name = $"artist{i}"
+                        Name = $"artist{i}",
+                        Subscribers = i * 2
                     };
 
                     artists.Add(artist);
@@ -95,7 +96,7 @@
                     {
                         Artist = artists[(i + 1) % 50],
                         Name = $"Songs {i}",
-                        NumberOfPlays = (i * 100) % 5000
+                        NumberOfPlays = ((i * 100) % 5000) + 1
                     };
 
                     context.Songs.Add(song);

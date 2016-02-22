@@ -1,5 +1,6 @@
 ﻿namespace SimilarBeads.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -69,6 +70,22 @@
             return this.users
                 .All()
                 .Count();
+        }
+
+        public int GetArtistsCount()
+        {
+            return this.users
+                .All()
+                .Where(x => x.IsArtist)
+                .Count();
+        }
+
+        public IQueryable<User> GetTopArtists(int numbberOfArtists)
+        {
+            return this.users.All()
+                .Where(x => x.IsArtist)
+                .OrderByDescending(x => x.Subscribers)
+                .Take(numbberOfArtists);
         }
     }
 }
