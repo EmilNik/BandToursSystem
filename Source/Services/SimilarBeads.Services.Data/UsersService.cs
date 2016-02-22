@@ -19,7 +19,7 @@
         {
             return this.users
                 .All()
-                .Where(u => u.Name == username)
+                .Where(u => u.Email == username)
                 .Select(u => u.Id)
                 .FirstOrDefault();
         }
@@ -28,7 +28,7 @@
         {
             return this.users
                 .All()
-                .Where(u => u.Name == username)
+                .Where(u => u.Email == username)
                 .Select(u => u.IsArtist)
                 .FirstOrDefault();
         }
@@ -37,7 +37,7 @@
         {
             return this.users
                 .All()
-                .Where(u => u.Name == username)
+                .Where(u => u.Email == username)
                 .Select(u => u.IsAdmin)
                 .FirstOrDefault();
         }
@@ -46,14 +46,20 @@
         {
             return this.users
                 .All()
-                .Where(u => u.Name == username);
+                .Where(u => u.UserName == username);
+        }
+
+        public void UpdateUser(User user)
+        {
+            this.users.Update(user);
+            this.users.SaveChanges();
         }
 
         public IEnumerable<string> SearchByUsername(string username)
         {
             return this.users
                 .All()
-                .Where(x => x.Name.Contains(username))
+                .Where(x => x.Name.Contains(username) || x.Email.Contains(username))
                 .Select(u => u.Name)
                 .AsEnumerable();
         }

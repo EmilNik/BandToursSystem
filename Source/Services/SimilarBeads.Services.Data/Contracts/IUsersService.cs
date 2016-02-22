@@ -13,6 +13,8 @@
 
         IEnumerable<string> SearchByUsername(string username);
 
+        void UpdateUser(User users);
+
         string UserIdByUsername(string username);
 
         bool UserIsArtist(string username);

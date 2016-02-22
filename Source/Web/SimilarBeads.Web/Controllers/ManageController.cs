@@ -5,6 +5,7 @@
     using System.Web;
     using System.Web.Mvc;
 
+    using BaseControllers;
     using Data.Models;
 
     using Microsoft.AspNet.Identity;
@@ -17,21 +18,14 @@
     using ViewModels.User;
 
     [Authorize]
-    public class ManageController : BaseController
+    public class ManageController : AccountBaseController
     {
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
-        private ApplicationSignInManager signInManager;
-
-        private ApplicationUserManager userManager;
-
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IUsersService usersService)
+        public ManageController(IUsersService users)
         {
-            this.UserManager = userManager;
-            this.SignInManager = signInManager;
-            this.UsersService = usersService;
-            this.SetCurrentUser();
+            this.UsersService = users;
         }
 
         public enum ManageMessageId
@@ -49,32 +43,6 @@
             RemovePhoneSuccess,
 
             Error
-        }
-
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return this.signInManager ?? this.HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-
-            private set
-            {
-                this.signInManager = value;
-            }
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return this.userManager ?? this.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-
-            private set
-            {
-                this.userManager = value;
-            }
         }
 
         protected IUsersService UsersService { get; private set; }
@@ -100,7 +68,7 @@
                                                                            ? "Your phone number was removed."
                                                                            : string.Empty;
 
-            var userId = this.User.Identity.GetUserId();
+            this.SetCurrentUser();
             var model = new IndexViewModel
             {
                 User = this.Mapper.Map<UserViewModel>(this.CurrentUser)
@@ -383,21 +351,13 @@
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && this.userManager != null)
+            if (disposing && this.UserManager != null)
             {
-                this.userManager.Dispose();
-                this.userManager = null;
+                this.UserManager.Dispose();
+                this.UserManager = null;
             }
 
             base.Dispose(disposing);
-        }
-
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                this.ModelState.AddModelError(string.Empty, error);
-            }
         }
 
         private bool HasPassword()
@@ -418,9 +378,10 @@
 
             if (username != null)
             {
-                this.CurrentUser = this.UsersService
+                var currentUser = this.UsersService
                     .ByUsername(username)
                     .FirstOrDefault();
+                this.CurrentUser = currentUser;
             }
         }
     }
