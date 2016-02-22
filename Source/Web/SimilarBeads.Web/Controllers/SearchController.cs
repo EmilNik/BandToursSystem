@@ -1,4 +1,4 @@
-﻿namespace SimilarBeads.Web.Controllers.BaseControllers
+﻿namespace SimilarBeads.Web.Controllers
 {
     using System.Web.Mvc;
 

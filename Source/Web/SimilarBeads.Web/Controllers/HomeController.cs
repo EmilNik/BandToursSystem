@@ -1,11 +1,14 @@
 ﻿namespace SimilarBeads.Web.Controllers
 {
+    using Services.Data;
     using System.Web.Mvc;
 
-    public class HomeController : BaseController
+    public class HomeController : BaseAuthorizationController
     {
-        public HomeController()
+        public HomeController(IUsersService users)
+            : base(users)
         {
+
         }
 
         [HttpGet]

@@ -59,12 +59,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConcertsServices.cs" />
+    <Compile Include="ConcertsService.cs" />
     <Compile Include="Contracts\ISongsService.cs" />
     <Compile Include="Contracts\IConcertsService.cs" />
     <Compile Include="Contracts\IUsersService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SongsServices.cs" />
+    <Compile Include="SongsService.cs" />
     <Compile Include="UsersService.cs" />
   </ItemGroup>
   <ItemGroup>

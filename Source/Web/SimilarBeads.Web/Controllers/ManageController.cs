@@ -5,11 +5,16 @@
     using System.Web;
     using System.Web.Mvc;
 
+    using Data.Models;
+
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
 
-    using SimilarBeads.Web.ViewModels.Manage;
+    using Services.Data;
+
+    using ViewModels.Manage;
+    using ViewModels.User;
 
     [Authorize]
     public class ManageController : BaseController
@@ -21,14 +26,12 @@
 
         private ApplicationUserManager userManager;
 
-        public ManageController()
-        {
-        }
-
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IUsersService usersService)
         {
             this.UserManager = userManager;
             this.SignInManager = signInManager;
+            this.UsersService = usersService;
+            this.SetCurrentUser();
         }
 
         public enum ManageMessageId
@@ -74,6 +77,10 @@
             }
         }
 
+        protected IUsersService UsersService { get; private set; }
+
+        protected User CurrentUser { get; private set; }
+
         private IAuthenticationManager AuthenticationManager => this.HttpContext.GetOwinContext().Authentication;
 
         // GET: /Manage/Index
@@ -95,15 +102,10 @@
 
             var userId = this.User.Identity.GetUserId();
             var model = new IndexViewModel
-                            {
-                                HasPassword = this.HasPassword(),
-                                PhoneNumber = await this.UserManager.GetPhoneNumberAsync(userId),
-                                TwoFactor = await this.UserManager.GetTwoFactorEnabledAsync(userId),
-                                Logins = await this.UserManager.GetLoginsAsync(userId),
-                                BrowserRemembered =
-                                    await
-                                    this.AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
-                            };
+            {
+                User = this.Mapper.Map<UserViewModel>(this.CurrentUser)
+            };
+
             return this.View(model);
         }
 
@@ -158,10 +160,10 @@
             if (this.UserManager.SmsService != null)
             {
                 var message = new IdentityMessage
-                                  {
-                                      Destination = model.Number,
-                                      Body = "Your security code is: " + code
-                                  };
+                {
+                    Destination = model.Number,
+                    Body = "Your security code is: " + code
+                };
                 await this.UserManager.SmsService.SendAsync(message);
             }
 
@@ -408,6 +410,18 @@
         {
             var user = this.UserManager.FindById(this.User.Identity.GetUserId());
             return user?.PhoneNumber != null;
+        }
+
+        private void SetCurrentUser()
+        {
+            var username = this.User.Identity.Name;
+
+            if (username != null)
+            {
+                this.CurrentUser = this.UsersService
+                    .ByUsername(username)
+                    .FirstOrDefault();
+            }
         }
     }
 }

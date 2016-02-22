@@ -1,12 +1,10 @@
 ﻿namespace SimilarBeads.Web.Controllers
 {
     using System.Web.Mvc;
-    using Services.Data;
 
-    public class ConcertsController : BaseAuthorizationController
+    public class ConcertsController : BaseController
     {
-        public ConcertsController(IUsersService users)
-            : base(users)
+        public ConcertsController()
         {
         }
 

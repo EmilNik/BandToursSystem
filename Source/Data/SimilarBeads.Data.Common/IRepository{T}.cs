@@ -21,5 +21,7 @@
         void Delete(T entity);
 
         void SaveChanges();
+
+        void Update(T entity);
     }
 }

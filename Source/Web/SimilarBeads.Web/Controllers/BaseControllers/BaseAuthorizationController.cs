@@ -1,10 +1,12 @@
 ﻿namespace SimilarBeads.Web.Controllers
 {
     using System.Linq;
+    using System.Web.Mvc;
 
     using Data.Models;
     using Services.Data;
 
+    [Authorize]
     public class BaseAuthorizationController : BaseController
     {
         public BaseAuthorizationController(IUsersService usersService)
@@ -20,6 +22,7 @@
         private void SetCurrentUser()
         {
             var username = this.User.Identity.Name;
+
             if (username != null)
             {
                 this.CurrentUser = this.UsersService

@@ -43,6 +43,17 @@
             this.DbSet.Add(entity);
         }
 
+        public void Update(T entity)
+        {
+            DbEntityEntry entry = this.Context.Entry(entity);
+            if (entry.State != EntityState.Detached)
+            {
+                this.DbSet.Attach(entity);
+            }
+
+            entry.State = EntityState.Modified;
+        }
+
         public void Delete(T entity)
         {
             DbEntityEntry entry = this.Context.Entry(entity);
