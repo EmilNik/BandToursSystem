@@ -1,8 +1,8 @@
 ﻿namespace SimilarBeads.Services.Data
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Dynamic;
 
     using SimilarBeads.Data.Common;
     using SimilarBeads.Data.Models;
@@ -86,6 +86,15 @@
                 .Where(x => x.IsArtist)
                 .OrderByDescending(x => x.Subscribers)
                 .Take(numbberOfArtists);
+        }
+
+        public IQueryable<User> GetArtistsCharts(int numberOfArtists, string orderBy, int numberToSkip)
+        {
+            return this.users.All()
+                .Where(x => x.IsArtist)
+                .OrderBy(orderBy)
+                .Skip(numberToSkip)
+                .Take(numberOfArtists);
         }
     }
 }

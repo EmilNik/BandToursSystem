@@ -9,5 +9,7 @@
         int GetCount();
 
         IQueryable<Song> GetTopSongs(int numberOfSongs);
+
+        IQueryable<Song> GetSongsCharts(int numberOfSongs, string orderBy, int numberToSkip);
     }
 }

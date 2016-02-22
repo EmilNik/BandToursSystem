@@ -1,8 +1,7 @@
 ﻿namespace SimilarBeads.Services.Data
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Dynamic;
 
     using SimilarBeads.Data.Common;
     using SimilarBeads.Data.Models;
@@ -27,6 +26,14 @@
             return this.songs
                 .All()
                 .OrderByDescending(x => x.NumberOfPlays)
+                .Take(numberOfSongs);
+        }
+
+        public IQueryable<Song> GetSongsCharts(int numberOfSongs, string orderBy, int numberToSkip)
+        {
+            return this.songs.All()
+                .OrderBy(orderBy)
+                .Skip(numberToSkip)
                 .Take(numberOfSongs);
         }
     }
