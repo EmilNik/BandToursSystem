@@ -33,7 +33,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.ActionLink(item.Name, "Details", "Artists", new { username = item.Name }, null)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SongsPlays)
