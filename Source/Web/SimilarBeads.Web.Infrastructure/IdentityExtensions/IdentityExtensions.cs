@@ -18,7 +18,7 @@
             return claim == null ? false : Convert.ToBoolean(claim.Value);
         }
 
-        public static string NameName(this IIdentity identity)
+        public static string GetName(this IIdentity identity)
         {
             var claim = ((ClaimsIdentity)identity).FindFirst("Name");
             return claim.Value;
