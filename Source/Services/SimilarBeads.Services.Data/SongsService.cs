@@ -29,12 +29,11 @@
                 .Take(numberOfSongs);
         }
 
-        public IQueryable<Song> GetSongsCharts(int numberOfSongs, string orderBy, int numberToSkip)
+        public IQueryable<Song> GetSongsCharts(string orderBy, string contains = "")
         {
             return this.songs.All()
                 .OrderBy(orderBy)
-                .Skip(numberToSkip)
-                .Take(numberOfSongs);
+                .Where(x => x.Name.Contains(contains));
         }
     }
 }

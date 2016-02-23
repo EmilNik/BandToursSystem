@@ -234,7 +234,9 @@
     <Compile Include="ViewModels\Account\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Account\SendCodeViewModel.cs" />
     <Compile Include="ViewModels\Account\VerifyCodeViewModel.cs" />
+    <Compile Include="ViewModels\Charts\ChartsBaseViewModel.cs" />
     <Compile Include="ViewModels\Charts\ChartsTopArtistsViewModel.cs" />
+    <Compile Include="ViewModels\Charts\ChartsTopSongsViewModel.cs" />
     <Compile Include="ViewModels\City\CityViewModel.cs" />
     <Compile Include="ViewModels\Artist\ArtistViewModel.cs" />
     <Compile Include="ViewModels\Home\HomeViewModel.cs" />
@@ -358,6 +360,8 @@
     <Content Include="Views\Concerts\Index.cshtml" />
     <Content Include="Views\Charts\Index.cshtml" />
     <Content Include="Views\Charts\TopArtists.cshtml" />
+    <Content Include="Views\Charts\TopSongs.cshtml" />
+    <Content Include="Views\Charts\_ChartsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

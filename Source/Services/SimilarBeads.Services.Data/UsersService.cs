@@ -6,7 +6,7 @@
 
     using SimilarBeads.Data.Common;
     using SimilarBeads.Data.Models;
-
+    using System;
     public class UsersService : IUsersService
     {
         private readonly IRepository<User> users;

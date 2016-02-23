@@ -10,6 +10,6 @@
 
         IQueryable<Song> GetTopSongs(int numberOfSongs);
 
-        IQueryable<Song> GetSongsCharts(int numberOfSongs, string orderBy, int numberToSkip);
+        IQueryable<Song> GetSongsCharts(string orderBy, string contains = "");
     }
 }

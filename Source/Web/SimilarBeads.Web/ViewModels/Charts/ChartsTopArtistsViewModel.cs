@@ -3,12 +3,8 @@
     using Artist;
     using PagedList;
 
-    public class ChartsTopArtistsViewModel
+    public class ChartsTopArtistsViewModel : ChartsBaseViewModel
     {
         public IPagedList<ArtistViewModel> Artists { get; set; }
-
-        public int CurrentPage { get; set; }
-
-        public int TotalPages { get; set; }
     }
 }

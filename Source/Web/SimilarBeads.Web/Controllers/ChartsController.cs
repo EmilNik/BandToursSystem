@@ -8,7 +8,7 @@
     using Services.Data;
     using ViewModels.Artist;
     using ViewModels.Charts;
-
+    using ViewModels.Song;
     public class ChartsController : BaseController
     {
         private IUsersService users;
@@ -31,7 +31,7 @@
         {
             this.ViewBag.CurrentSort = sortOrder;
             this.ViewBag.NameSortParm = sortOrder == "Name" ? "Name desc" : "Name";
-            this.ViewBag.SongsPlaysSortParam = sortOrder == "Songs.NumberOfPlays.Sum()" ? "Songs.NumberOfPlays.Sum() desc" : "Songs.NumberOfPlays.Sum()";
+            this.ViewBag.SongsPlaysSortParam = sortOrder == "SongsPlays" ? "SongsPlays desc" : "SongsPlays";
             this.ViewBag.SubscribersSortParam = sortOrder == "Subscribers" ? "Subscribers desc" : "Subscribers";
 
             if (searchString != string.Empty)
@@ -61,7 +61,12 @@
             this.ViewBag.CurrentFilter = searchString;
 
             int pageSize = 10;
-            var totalPages = (artists.Count / pageSize) - 1;
+            var totalPages = artists.Count / pageSize;
+
+            if (totalPages % 10 != 0)
+            {
+                totalPages += 1;
+            }
 
             var model = new ChartsTopArtistsViewModel()
             {
@@ -78,8 +83,8 @@
         {
             this.ViewBag.CurrentSort = sortOrder;
             this.ViewBag.NameSortParm = sortOrder == "Name" ? "Name desc" : "Name";
-            this.ViewBag.SongsPlaysSortParam = sortOrder == "Songs.NumberOfPlays.Sum()" ? "Songs.NumberOfPlays.Sum() desc" : "Songs.NumberOfPlays.Sum()";
-            this.ViewBag.SubscribersSortParam = sortOrder == "Subscribers" ? "Subscribers desc" : "Subscribers";
+            this.ViewBag.SongsPlaysSortParam = sortOrder == "ArtistId" ? "ArtistId desc" : "ArtistId";
+            this.ViewBag.SubscribersSortParam = sortOrder == "NumberOfPlays" ? "NumberOfPlays desc" : "NumberOfPlays";
 
             if (searchString != string.Empty)
             {
@@ -92,7 +97,7 @@
 
             if (sortOrder == null || sortOrder == string.Empty)
             {
-                sortOrder = "Subscribers desc";
+                sortOrder = "NumberOfPlays desc";
             }
 
             if (searchString == null)
@@ -100,19 +105,24 @@
                 searchString = string.Empty;
             }
 
-            var artists = this.songs
+            var songs = this.songs
                 .GetSongsCharts(sortOrder, searchString)
-                .To<ArtistViewModel>()
+                .To<SongViewModel>()
                 .ToList();
 
             this.ViewBag.CurrentFilter = searchString;
 
             int pageSize = 10;
-            var totalPages = (artists.Count / pageSize) - 1;
+            var totalPages = songs.Count / pageSize;
 
-            var model = new ChartsTopArtistsViewModel()
+            if (totalPages % 10 != 0)
             {
-                Artists = artists.ToPagedList(page, pageSize),
+                totalPages += 1;
+            }
+
+            var model = new ChartsTopSongsViewModel()
+            {
+                Songs = songs.ToPagedList(page, pageSize),
                 CurrentPage = page,
                 TotalPages = totalPages
             };
