@@ -1,4 +1,4 @@
-﻿namespace SimilarBeads.Web.ViewModels.Home
+﻿namespace SimilarBeads.Web.ViewModels.Artist
 {
     using System.Linq;
 
@@ -11,12 +11,13 @@
 
         public int? Subscribers { get; set; }
 
-        public int? SongsPlays { get; set; }
+        public int SongsPlays { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Data.Models.User, ArtistViewModel>()
-                .ForMember(x => x.SongsPlays, opt => opt.MapFrom(x => x.Songs.Sum(s => s.NumberOfPlays)));
+                .ForMember(x => x.Subscribers, opt => opt.MapFrom(x => x.Subscribers == null ? 0 : x.Subscribers))
+                .ForMember(x => x.SongsPlays, opt => opt.MapFrom(x => x.Songs.Any() ? x.Songs.Sum(s => s.NumberOfPlays) : 0));
         }
     }
 }

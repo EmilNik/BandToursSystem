@@ -6,7 +6,7 @@
 
     using Microsoft.AspNet.Identity;
     using Models;
-    
+
     public sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()

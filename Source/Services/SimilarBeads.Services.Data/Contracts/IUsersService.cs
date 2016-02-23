@@ -25,6 +25,6 @@
 
         IQueryable<User> GetTopArtists(int numberOfArtists);
 
-        IQueryable<User> GetArtistsCharts(int numberOfArtists, string orderBy, int numberToSkip);
+        IQueryable<User> GetArtistsCharts(string orderBy, string contains);
     }
 }

@@ -1,5 +1,6 @@
-﻿namespace SimilarBeads.Web.ViewModels.Home
+﻿namespace SimilarBeads.Web.ViewModels.Song
 {
+    using Artist;
     using AutoMapper;
     using Data.Models;
     using Infrastructure.Mapping;

@@ -88,13 +88,12 @@
                 .Take(numbberOfArtists);
         }
 
-        public IQueryable<User> GetArtistsCharts(int numberOfArtists, string orderBy, int numberToSkip)
+        public IQueryable<User> GetArtistsCharts(string orderBy, string contains = "")
         {
             return this.users.All()
                 .Where(x => x.IsArtist)
                 .OrderBy(orderBy)
-                .Skip(numberToSkip)
-                .Take(numberOfArtists);
+                .Where(x => x.Name.Contains(contains));
         }
     }
 }

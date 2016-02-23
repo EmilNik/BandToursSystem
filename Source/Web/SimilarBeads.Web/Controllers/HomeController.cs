@@ -6,8 +6,9 @@
     using Common;
     using Infrastructure.Mapping;
     using Services.Data;
+    using ViewModels.Artist;
     using ViewModels.Home;
-    using Infrastructure.IdentityExtensions;
+    using ViewModels.Song;
 
     public class HomeController : BaseController
     {

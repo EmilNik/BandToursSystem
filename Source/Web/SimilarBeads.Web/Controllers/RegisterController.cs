@@ -7,6 +7,7 @@
     using Data.Models;
 
     using ViewModels.Account;
+
     public class RegisterController : AccountBaseController
     {
         // GET: /Account/Register
