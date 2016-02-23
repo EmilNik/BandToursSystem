@@ -27,7 +27,35 @@
                     {
                         <li class="dropdown">
                             <a href="@Url.Action("Index", "Home", new { area = string.Empty })" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-hashpopup="true" aria-extended="false">
-                                <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                Music <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Search", "Index", "Search", new { area = string.Empty }, null)</li>
+                                <li>@Html.ActionLink("Radio", "Index", "Radio", new { area = string.Empty }, null)</li>
+                                <li>@Html.ActionLink("Your Music", "Index", "Music", new { area = string.Empty }, null)</li>
+                            </ul>
+                        </li>
+                    }
+
+                    @if (this.User.IsInRole("Artist"))
+                    {
+                        <li class="dropdown">
+                            <a href="@Url.Action("Index", "Home", new { area = string.Empty })" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-hashpopup="true" aria-extended="false">
+                                Artist <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Search", "Index", "Search", new { area = string.Empty }, null)</li>
+                                <li>@Html.ActionLink("Radio", "Index", "Radio", new { area = string.Empty }, null)</li>
+                                <li>@Html.ActionLink("Your Music", "Index", "Music", new { area = string.Empty }, null)</li>
+                            </ul>
+                        </li>
+                    }
+
+                    @if (this.User.IsInRole("Admin"))
+                    {
+                        <li class="dropdown">
+                            <a href="@Url.Action("Index", "Home", new { area = string.Empty })" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-hashpopup="true" aria-extended="false">
+                                Admin <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li>@Html.ActionLink("Search", "Index", "Search", new { area = string.Empty }, null)</li>

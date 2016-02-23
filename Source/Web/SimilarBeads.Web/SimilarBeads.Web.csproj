@@ -346,6 +346,7 @@
     <Content Include="Views\Error\HttpError.cshtml" />
     <Content Include="Views\Statistics\Charts.cshtml" />
     <Content Include="Views\Concerts\Index.cshtml" />
+    <Content Include="Views\Charts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

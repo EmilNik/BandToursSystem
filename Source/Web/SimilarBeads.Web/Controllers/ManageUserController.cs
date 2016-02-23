@@ -35,6 +35,12 @@
                 return this.RedirectToAction("Index", "Manage", new { model = model });
             }
 
+            var cityId = this.cities.CityByUsername(user.City);
+            if (cityId == null)
+            {
+                return this.RedirectToAction("Index", "Manage", new { message = 7 });
+            }
+
             currentUser.CityId = this.cities.CityByUsername(user.City).Id;
             currentUser.Name = user.Name;
             this.users.UpdateUser(currentUser);
