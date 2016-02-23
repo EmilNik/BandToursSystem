@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - SimilarBeads</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/KendoCSS")
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/kendoJS")
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -58,9 +60,7 @@
                                 Admin <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Search", "Index", "Search", new { area = string.Empty }, null)</li>
-                                <li>@Html.ActionLink("Radio", "Index", "Radio", new { area = string.Empty }, null)</li>
-                                <li>@Html.ActionLink("Your Music", "Index", "Music", new { area = string.Empty }, null)</li>
+                                <li>@Html.ActionLink("Users", "Index", "UsersList", new { area = "Admin" }, null)</li>
                             </ul>
                         </li>
                     }

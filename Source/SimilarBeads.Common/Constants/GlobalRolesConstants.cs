@@ -2,7 +2,7 @@
 {
     public class GlobalRolesConstants
     {
-        public const string AdministratorRoleName = "Administrator";
+        public const string AdministratorRoleName = "Admin";
         public const string ArtistRoleName = "Artist";
         public const string UserRoleName = "User";
     }

@@ -95,5 +95,22 @@
                 .OrderBy(orderBy)
                 .Where(x => x.Name.Contains(contains));
         }
+
+        public IQueryable<User> GetAll()
+        {
+            return this.users.All();
+        }
+
+        public IQueryable<User> GetById(string id)
+        {
+            return this.users.All()
+                .Where(x => x.Id == id);
+        }
+
+        public void Delete(User user)
+        {
+            this.users.Delete(user);
+            this.users.SaveChanges();
+        }
     }
 }

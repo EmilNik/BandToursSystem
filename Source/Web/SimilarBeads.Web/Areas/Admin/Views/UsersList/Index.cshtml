@@ -1,0 +1,32 @@
+﻿@using Kendo.Mvc.UI;
+<br />
+<br />
+@(Html.Kendo().Grid<SimilarBeads.Web.Areas.Admin.Models.Users.UserViewModel>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+          columns.Bound(c => c.Name);
+          columns.Bound(c => c.IsArtist);
+          columns.Bound(c => c.Subscribers);
+          columns.Bound(c => c.Email);
+          columns.Bound(c => c.UserName);
+          columns.Bound(c => c.City);
+          columns.Command(command => { command.Edit(); command.Destroy(); }).Width(180);
+      })
+      .ColumnMenu()
+      .Editable(editable => editable.Mode(GridEditMode.PopUp))
+      .Pageable()
+      .Navigatable()
+      .Sortable(sortable => {
+          sortable.SortMode(GridSortMode.SingleColumn);
+      })
+      .Filterable()
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Model(model => model.Id(p => p.Id))
+          .Read(read => read.Action("Users_Read", "UsersList"))
+          .Update(update => update.Action("Users_Update", "UsersList"))
+          .Destroy(destroy => destroy.Action("Users_Destroy", "UsersList"))
+      )
+)

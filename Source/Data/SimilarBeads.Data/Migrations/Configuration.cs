@@ -6,7 +6,9 @@
 
     using Microsoft.AspNet.Identity;
     using Models;
-
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using SimilarBeads.Common;
+    using SimilarBeads.Common.Constants;
     public sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
@@ -70,6 +72,32 @@
                 }
 
                 context.SaveChanges();
+
+                var blizzber = new User()
+                {
+                    Email = "emil.nik1002@gmail.com",
+                    UserName = "emil.nik1002@gmail.com",
+                    Name = "Blizzber",
+                    IsAdmin = true,
+                    IsArtist = true
+                };
+
+                // Create admin role
+                var roleStore = new RoleStore<IdentityRole>(context);
+                var roleManager = new RoleManager<IdentityRole>(roleStore);
+                var role = new IdentityRole { Name = GlobalRolesConstants.AdministratorRoleName };
+                var artistRole = new IdentityRole { Name = GlobalRolesConstants.ArtistRoleName };
+                roleManager.Create(role);
+                roleManager.Create(artistRole);
+
+                // Create admin user
+                var userStore = new UserStore<User>(context);
+                var userManager = new UserManager<User>(userStore);
+                userManager.Create(blizzber, "asdasd");
+
+                // Assign user to admin role
+                userManager.AddToRole(blizzber.Id, GlobalRolesConstants.AdministratorRoleName);
+                userManager.AddToRole(blizzber.Id, GlobalRolesConstants.ArtistRoleName);
             }
 
             if (!context.Concerts.Any())

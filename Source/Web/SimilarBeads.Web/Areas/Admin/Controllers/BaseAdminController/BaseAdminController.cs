@@ -1,12 +1,11 @@
-﻿namespace SimilarBeads.Web.Areas.Administration.Controllers
+﻿namespace SimilarBeads.Web.Areas.Admin.Controllers.BaseAdminController
 {
     using System.Web.Mvc;
-
     using Common.Constants;
     using Web.Controllers;
 
     [Authorize(Roles = GlobalRolesConstants.AdministratorRoleName)]
-    public class AdministrationController : BaseController
+    public class BaseAdminController : BaseController
     {
     }
 }
