@@ -74,6 +74,10 @@
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
 
             // Add custom user claims here
+            userIdentity.AddClaim(new Claim("IsArtist", this.IsArtist.ToString()));
+            userIdentity.AddClaim(new Claim("IsAdmin", this.IsAdmin.ToString()));
+            userIdentity.AddClaim(new Claim("Name", this.Name));
+
             return userIdentity;
         }
     }

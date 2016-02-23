@@ -7,6 +7,7 @@
     using Infrastructure.Mapping;
     using Services.Data;
     using ViewModels.Home;
+    using Infrastructure.IdentityExtensions;
 
     public class HomeController : BaseController
     {
