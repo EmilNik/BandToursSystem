@@ -5,58 +5,21 @@
     using System.Web;
     using System.Web.Mvc;
 
+    using BaseControllers;
+
+    using Data.Models;
+
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
 
-    using SimilarBeads.Data.Models;
-    using SimilarBeads.Web.ViewModels.Account;
+    using ViewModels.Account;
 
     [Authorize]
-    public class AccountController : BaseController
+    public class AccountController : AccountBaseController
     {
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
-
-        private ApplicationSignInManager signInManager;
-
-        private ApplicationUserManager userManager;
-
-        public AccountController()
-        {
-        }
-
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            this.UserManager = userManager;
-            this.SignInManager = signInManager;
-        }
-
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return this.signInManager ?? this.HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-
-            private set
-            {
-                this.signInManager = value;
-            }
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return this.userManager ?? this.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-
-            private set
-            {
-                this.userManager = value;
-            }
-        }
 
         private IAuthenticationManager AuthenticationManager => this.HttpContext.GetOwinContext().Authentication;
 
@@ -153,42 +116,6 @@
                     this.ModelState.AddModelError(string.Empty, "Invalid code.");
                     return this.View(model);
             }
-        }
-
-        // GET: /Account/Register
-        [AllowAnonymous]
-        public ActionResult Register()
-        {
-            return this.View();
-        }
-
-        // POST: /Account/Register
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
-        {
-            if (this.ModelState.IsValid)
-            {
-                var user = new User { UserName = model.Email, Email = model.Email };
-                var result = await this.UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                    return this.RedirectToAction("Index", "Home");
-                }
-
-                this.AddErrors(result);
-            }
-
-            // If we got this far, something failed, redisplay form
-            return this.View(model);
         }
 
         // GET: /Account/ConfirmEmail
@@ -432,16 +359,16 @@
         {
             if (disposing)
             {
-                if (this.userManager != null)
+                if (this.UserManager != null)
                 {
-                    this.userManager.Dispose();
-                    this.userManager = null;
+                    this.UserManager.Dispose();
+                    this.UserManager = null;
                 }
 
-                if (this.signInManager != null)
+                if (this.SignInManager != null)
                 {
-                    this.signInManager.Dispose();
-                    this.signInManager = null;
+                    this.SignInManager.Dispose();
+                    this.SignInManager = null;
                 }
             }
 

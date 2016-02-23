@@ -5,30 +5,27 @@
     using System.Web;
     using System.Web.Mvc;
 
+    using BaseControllers;
+    using Data.Models;
+
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
 
-    using SimilarBeads.Web.ViewModels.Manage;
+    using Services.Data;
+
+    using ViewModels.Manage;
+    using ViewModels.User;
 
     [Authorize]
-    public class ManageController : BaseController
+    public class ManageController : AccountBaseController
     {
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
-        private ApplicationSignInManager signInManager;
-
-        private ApplicationUserManager userManager;
-
-        public ManageController()
+        public ManageController(IUsersService users)
         {
-        }
-
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            this.UserManager = userManager;
-            this.SignInManager = signInManager;
+            this.UsersService = users;
         }
 
         public enum ManageMessageId
@@ -48,31 +45,9 @@
             Error
         }
 
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return this.signInManager ?? this.HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
+        protected IUsersService UsersService { get; private set; }
 
-            private set
-            {
-                this.signInManager = value;
-            }
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return this.userManager ?? this.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-
-            private set
-            {
-                this.userManager = value;
-            }
-        }
+        protected User CurrentUser { get; private set; }
 
         private IAuthenticationManager AuthenticationManager => this.HttpContext.GetOwinContext().Authentication;
 
@@ -93,17 +68,12 @@
                                                                            ? "Your phone number was removed."
                                                                            : string.Empty;
 
-            var userId = this.User.Identity.GetUserId();
+            this.SetCurrentUser();
             var model = new IndexViewModel
-                            {
-                                HasPassword = this.HasPassword(),
-                                PhoneNumber = await this.UserManager.GetPhoneNumberAsync(userId),
-                                TwoFactor = await this.UserManager.GetTwoFactorEnabledAsync(userId),
-                                Logins = await this.UserManager.GetLoginsAsync(userId),
-                                BrowserRemembered =
-                                    await
-                                    this.AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
-                            };
+            {
+                User = this.Mapper.Map<UserViewModel>(this.CurrentUser)
+            };
+
             return this.View(model);
         }
 
@@ -158,10 +128,10 @@
             if (this.UserManager.SmsService != null)
             {
                 var message = new IdentityMessage
-                                  {
-                                      Destination = model.Number,
-                                      Body = "Your security code is: " + code
-                                  };
+                {
+                    Destination = model.Number,
+                    Body = "Your security code is: " + code
+                };
                 await this.UserManager.SmsService.SendAsync(message);
             }
 
@@ -381,21 +351,13 @@
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && this.userManager != null)
+            if (disposing && this.UserManager != null)
             {
-                this.userManager.Dispose();
-                this.userManager = null;
+                this.UserManager.Dispose();
+                this.UserManager = null;
             }
 
             base.Dispose(disposing);
-        }
-
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                this.ModelState.AddModelError(string.Empty, error);
-            }
         }
 
         private bool HasPassword()
@@ -408,6 +370,19 @@
         {
             var user = this.UserManager.FindById(this.User.Identity.GetUserId());
             return user?.PhoneNumber != null;
+        }
+
+        private void SetCurrentUser()
+        {
+            var username = this.User.Identity.Name;
+
+            if (username != null)
+            {
+                var currentUser = this.UsersService
+                    .ByUsername(username)
+                    .FirstOrDefault();
+                this.CurrentUser = currentUser;
+            }
         }
     }
 }

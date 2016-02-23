@@ -20,8 +20,8 @@
 
         void Delete(T entity);
 
-        void HardDelete(T entity);
-
         void SaveChanges();
+
+        void Update(T entity);
     }
 }
