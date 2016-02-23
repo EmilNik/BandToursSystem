@@ -42,7 +42,9 @@
 
             RemovePhoneSuccess,
 
-            Error
+            Error,
+
+            AddCityError
         }
 
         protected IUsersService UsersService { get; private set; }
@@ -66,7 +68,9 @@
                                                                      ? "Your phone number was added."
                                                                      : message == ManageMessageId.RemovePhoneSuccess
                                                                            ? "Your phone number was removed."
-                                                                           : string.Empty;
+                                                                           : message == ManageMessageId.AddCityError
+                                                                                ? "There is no such city in the database"
+                                                                                : string.Empty;
 
             this.SetCurrentUser();
             var model = new IndexViewModel

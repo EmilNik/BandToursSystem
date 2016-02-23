@@ -8,7 +8,7 @@
 
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
-
+    using System.Linq;
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class User : IdentityUser
     {
@@ -50,6 +50,14 @@
         [DefaultValue(0)]
         public int? Subscribers { get; set; }
 
+        public int SongsPlays
+        {
+            get
+            {
+                return this.Songs.Any() ? this.Songs.Sum(s => s.NumberOfPlays) : 0;
+            }
+        }
+
         public virtual ICollection<Genre> Genres
         {
             get { return this.genres; }
@@ -74,6 +82,10 @@
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
 
             // Add custom user claims here
+            userIdentity.AddClaim(new Claim("IsArtist", this.IsArtist.ToString()));
+            userIdentity.AddClaim(new Claim("IsAdmin", this.IsAdmin.ToString()));
+            userIdentity.AddClaim(new Claim("Name", this.Name));
+
             return userIdentity;
         }
     }

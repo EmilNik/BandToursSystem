@@ -1,12 +1,12 @@
 ﻿namespace SimilarBeads.Services.Data
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Dynamic;
 
     using SimilarBeads.Data.Common;
     using SimilarBeads.Data.Models;
-
+    using System;
     public class UsersService : IUsersService
     {
         private readonly IRepository<User> users;
@@ -86,6 +86,14 @@
                 .Where(x => x.IsArtist)
                 .OrderByDescending(x => x.Subscribers)
                 .Take(numbberOfArtists);
+        }
+
+        public IQueryable<User> GetArtistsCharts(string orderBy, string contains = "")
+        {
+            return this.users.All()
+                .Where(x => x.IsArtist)
+                .OrderBy(orderBy)
+                .Where(x => x.Name.Contains(contains));
         }
     }
 }

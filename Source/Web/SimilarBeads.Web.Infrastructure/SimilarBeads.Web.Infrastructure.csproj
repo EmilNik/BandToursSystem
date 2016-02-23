@@ -86,6 +86,7 @@
     <Compile Include="CustomAttributes\AutocompleteAttribute.cs" />
     <Compile Include="CustomAttributes\AutocompleteHelpers.cs" />
     <Compile Include="HtmlSanitizer.cs" />
+    <Compile Include="IdentityExtensions\IdentityExtensions.cs" />
     <Compile Include="ISanitizer.cs" />
     <Compile Include="Mapping\AutoMapperConfig.cs" />
     <Compile Include="Mapping\IHaveCustomMappings.cs" />

@@ -6,7 +6,7 @@
 
     using Microsoft.AspNet.Identity;
     using Models;
-    
+
     public sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
@@ -94,7 +94,7 @@
                 {
                     var song = new Song()
                     {
-                        Artist = artists[(i + 1) % 50],
+                        Artist = artists[(i + 1) % 15],
                         Name = $"Songs {i}",
                         NumberOfPlays = ((i * 100) % 5000) + 1
                     };

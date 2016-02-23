@@ -24,5 +24,7 @@
         bool UserIsAdmin(string username);
 
         IQueryable<User> GetTopArtists(int numberOfArtists);
+
+        IQueryable<User> GetArtistsCharts(string orderBy, string contains);
     }
 }
