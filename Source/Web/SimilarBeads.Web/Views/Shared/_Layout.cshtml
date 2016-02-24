@@ -22,9 +22,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = string.Empty }, null)</li>
-                    <li>@Html.ActionLink("Charts", "Index", "Charts", new { area = string.Empty }, null)</li>
-                    <li>@Html.ActionLink("Concerts", "Get", "Concerts", new { area = string.Empty }, null)</li>
+                    <li>@Html.ActionLink("See Top Artists", "TopArtists", "Charts", new { area = string.Empty }, null)</li>
+                    <li>@Html.ActionLink("See Top Songs", "TopSongs", "Charts", new { area = string.Empty }, null)</li>
                     @if (this.User.Identity.IsAuthenticated)
                     {
                         <li class="dropdown">
@@ -32,9 +31,7 @@
                                 Music <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Search", "Index", "Search", new { area = string.Empty }, null)</li>
-                                <li>@Html.ActionLink("Radio", "Index", "Radio", new { area = string.Empty }, null)</li>
-                                <li>@Html.ActionLink("Your Music", "Index", "Music", new { area = string.Empty }, null)</li>
+                                <li>@Html.ActionLink("Concerts", "TopConcerts", "Concerts", new { area = string.Empty }, null)</li>
                             </ul>
                         </li>
                     }
@@ -46,9 +43,8 @@
                                 Artist <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Search", "Index", "Search", new { area = string.Empty }, null)</li>
-                                <li>@Html.ActionLink("Radio", "Index", "Radio", new { area = string.Empty }, null)</li>
-                                <li>@Html.ActionLink("Your Music", "Index", "Music", new { area = string.Empty }, null)</li>
+                                <li>@Html.ActionLink("Add Songs", "AddSong", "Artists", new { area = "Artist" }, null)</li>
+                                <li>@Html.ActionLink("Add Concert", "AddConcert", "AddConcerts", new { area = "Artist" }, null)</li>
                             </ul>
                         </li>
                     }
@@ -61,6 +57,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>@Html.ActionLink("Users", "Index", "UsersList", new { area = "Admin" }, null)</li>
+                                <li>@Html.ActionLink("Concerts", "Index", "ConcertsList", new { area = "Admin" }, null)</li>
                             </ul>
                         </li>
                     }
@@ -69,6 +66,10 @@
             </div>
         </div>
     </div>
+    @if (this.TempData["Notification"] != null)
+    {
+        <div class="alert alert-success" role="alert">@this.TempData["Notification"]</div>
+    }
     <div class="container body-content">
         @RenderBody()
         <hr />

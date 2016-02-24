@@ -10,12 +10,10 @@
     public class ManageUserController : BaseController
     {
         private IUsersService users;
-        private ICitiesService cities;
 
-        public ManageUserController(IUsersService users, ICitiesService cities)
+        public ManageUserController(IUsersService users)
         {
             this.users = users;
-            this.cities = cities;
         }
 
         [HttpPost]
@@ -35,13 +33,6 @@
                 return this.RedirectToAction("Index", "Manage", new { model = model });
             }
 
-            var cityId = this.cities.CityByUsername(user.City);
-            if (cityId == null)
-            {
-                return this.RedirectToAction("Index", "Manage", new { message = 7 });
-            }
-
-            currentUser.CityId = this.cities.CityByUsername(user.City).Id;
             currentUser.Name = user.Name;
             this.users.UpdateUser(currentUser);
             return this.RedirectToAction("Index", "Manage", new { model = model });

@@ -209,13 +209,20 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SmsService.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Admin\Models\Concerts\ConcertInputModel.cs" />
+    <Compile Include="Areas\Admin\Models\Concerts\ConcertViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Users\UserInputModel.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseAdminController\BaseAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersListController.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Models\Users\UserViewModel.cs" />
+    <Compile Include="Areas\Admin\Controllers\ConcertsListController.cs" />
+    <Compile Include="Areas\Artist\ArtistAreaRegistration.cs" />
+    <Compile Include="Areas\Artist\Controllers\Base\BaseArtistController.cs" />
+    <Compile Include="Areas\Artist\Controllers\AddConcertsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AutocompleteController.cs" />
+    <Compile Include="Areas\Artist\Controllers\ArtistsController.cs" />
+    <Compile Include="Controllers\DetailsController.cs" />
     <Compile Include="Controllers\BaseControllers\AccountBaseController.cs" />
     <Compile Include="Controllers\BaseControllers\BaseAuthorizationController.cs" />
     <Compile Include="Controllers\BaseControllers\BaseController.cs" />
@@ -243,10 +250,13 @@
     <Compile Include="ViewModels\Account\VerifyCodeViewModel.cs" />
     <Compile Include="ViewModels\Charts\ChartsBaseViewModel.cs" />
     <Compile Include="ViewModels\Charts\ChartsTopArtistsViewModel.cs" />
+    <Compile Include="ViewModels\Charts\ChartsTopConcertsViewModel.cs" />
     <Compile Include="ViewModels\Charts\ChartsTopSongsViewModel.cs" />
-    <Compile Include="ViewModels\City\CityViewModel.cs" />
     <Compile Include="ViewModels\Artist\ArtistViewModel.cs" />
+    <Compile Include="Areas\Artist\Models\Concert\ConcertInputModel.cs" />
+    <Compile Include="ViewModels\Concert\ConcertViewModel.cs" />
     <Compile Include="ViewModels\Home\HomeViewModel.cs" />
+    <Compile Include="Areas\Artist\Models\Songs\SongInputModel.cs" />
     <Compile Include="ViewModels\Song\SongViewModel.cs" />
     <Compile Include="ViewModels\Manage\AddPhoneNumberViewModel.cs" />
     <Compile Include="ViewModels\Manage\ChangePasswordViewModel.cs" />
@@ -259,6 +269,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Manage\SetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Manage\VerifyPhoneNumberViewModel.cs" />
+    <Compile Include="ViewModels\User\UserProfileViewModel.cs" />
     <Compile Include="ViewModels\User\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -387,6 +398,9 @@
     <Content Include="Content\KendoUI\images\kendoui.ttf" />
     <Content Include="Content\KendoUI\images\kendoui.woff" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Artist\Views\web.config" />
+    <Content Include="Areas\Artist\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\ConcertsList\Index.cshtml" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.0.js" />
     <Content Include="Scripts\jquery-2.2.0.min.js" />
@@ -437,17 +451,23 @@
     <Content Include="Views\Home\_IndexStatistics.cshtml" />
     <Content Include="Views\Error\HttpError.cshtml" />
     <Content Include="Views\Statistics\Charts.cshtml" />
-    <Content Include="Views\Concerts\Index.cshtml" />
+    <Content Include="Views\Concerts\TopConcerts.cshtml" />
     <Content Include="Views\Charts\Index.cshtml" />
     <Content Include="Views\Charts\TopArtists.cshtml" />
     <Content Include="Views\Charts\TopSongs.cshtml" />
     <Content Include="Views\Charts\_ChartsPartial.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\UserViewModel.cshtml" />
+    <Content Include="Views\Details\Details.cshtml" />
+    <Content Include="Areas\Artist\Views\Artists\AddSong.cshtml" />
+    <Content Include="Areas\Artist\Views\AddConcerts\AddConcert.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ConcertViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\Artist\Views\Shared\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\ConcertsList\" />
     <Folder Include="Views\UsersList\" />
   </ItemGroup>
   <ItemGroup>

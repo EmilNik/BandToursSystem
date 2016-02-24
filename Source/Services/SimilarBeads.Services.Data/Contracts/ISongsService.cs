@@ -11,5 +11,11 @@
         IQueryable<Song> GetTopSongs(int numberOfSongs);
 
         IQueryable<Song> GetSongsCharts(string orderBy, string contains = "");
+
+        Song Add(Song song);
+
+        Song GetById(int id);
+
+        Song UpdateSong(Song song);
     }
 }

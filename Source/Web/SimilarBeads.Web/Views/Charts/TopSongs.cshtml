@@ -36,7 +36,7 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.ActionLink(item.ArtistName, "Details", "Artists", new { username = item.ArtistName }, null)
+                @Html.ActionLink(item.ArtistName, "Details", "Details", new { username = item.ArtistName }, null)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NumberOfPlays)

@@ -1,14 +1,15 @@
 ﻿namespace SimilarBeads.Data.Migrations
 {
+    using System;
     using System.Collections.Generic;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
     using Microsoft.AspNet.Identity;
-    using Models;
     using Microsoft.AspNet.Identity.EntityFramework;
-    using SimilarBeads.Common;
+    using Models;
     using SimilarBeads.Common.Constants;
+
     public sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
@@ -19,20 +20,6 @@
 
         protected override void Seed(ApplicationDbContext context)
         {
-            if (!context.Cities.Any())
-            {
-                for (int i = 0; i < 15; i++)
-                {
-                    var city = new City
-                    {
-                        Name = $"City{i}"
-                    };
-                    context.Cities.Add(city);
-                }
-
-                context.SaveChanges();
-            }
-
             var artists = new List<User>();
 
             if (!context.Users.Any())
@@ -47,7 +34,6 @@
                         UserName = $"user{i}@site.com",
                         PasswordHash = hashedPass,
                         SecurityStamp = hashedPass,
-                        CityId = 5,
                         Name = $"user{i}"
                     };
 
@@ -62,7 +48,6 @@
                         PasswordHash = hashedPass,
                         SecurityStamp = hashedPass,
                         IsArtist = true,
-                        CityId = 5,
                         Name = $"artist{i}",
                         Subscribers = i * 2
                     };
@@ -106,8 +91,9 @@
                 {
                     var concert = new Concert()
                     {
-                        Artist = artists[(i + 1) % 10],
-                        CityId = 5
+                        ArtistId = artists[(i + 1) % 10].Id,
+                        City = "Sofia",
+                        Date = DateTime.Now
                     };
 
                     context.Concerts.Add(concert);

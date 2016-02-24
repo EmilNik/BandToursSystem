@@ -6,7 +6,7 @@
 
     using SimilarBeads.Data.Common;
     using SimilarBeads.Data.Models;
-    using System;
+
     public class UsersService : IUsersService
     {
         private readonly IRepository<User> users;
@@ -18,11 +18,12 @@
 
         public string UserIdByUsername(string username)
         {
-            return this.users
+            var result = this.users
                 .All()
-                .Where(u => u.Email == username)
+                .Where(u => u.Name == username)
                 .Select(u => u.Id)
                 .FirstOrDefault();
+            return result;
         }
 
         public bool UserIsArtist(string username)
@@ -47,7 +48,7 @@
         {
             return this.users
                 .All()
-                .Where(u => u.UserName == username);
+                .Where(u => u.Name == username);
         }
 
         public void UpdateUser(User user)

@@ -36,13 +36,10 @@
         {
             if (this.ModelState.IsValid)
             {
-                if (this.ModelState.IsValid)
-                {
-                    var entity = this.users.GetById(user.Id).FirstOrDefault();
-                    entity.Name = user.Name;
+                var entity = this.users.GetById(user.Id).FirstOrDefault();
+                entity.Name = user.Name;
 
-                    this.users.UpdateUser(entity);
-                }
+                this.users.UpdateUser(entity);
 
                 var result = this.users.GetById(user.Id).To<UserViewModel>().FirstOrDefault();
                 return this.Json(new[] { result }.ToDataSourceResult(request, this.ModelState));

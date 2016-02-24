@@ -9,6 +9,7 @@
     using ViewModels.Artist;
     using ViewModels.Charts;
     using ViewModels.Song;
+
     public class ChartsController : BaseController
     {
         private IUsersService users;

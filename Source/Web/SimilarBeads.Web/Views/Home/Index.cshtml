@@ -22,7 +22,7 @@
                     @foreach (var artist in Model.Artists)
                     {
                         <tr>
-                            <td>@Html.ActionLink(artist.Name, "Details", "Artists", new { username = artist.Name }, null)</td>
+                            <td>@Html.ActionLink(artist.Name, "Details", "Details", new { username = artist.Name }, null)</td>
                             <td>@artist.SongsPlays</td>
                             <td>@artist.Subscribers</td>
                         </tr>
@@ -37,7 +37,7 @@
                     <tr>
                         <th>Song Name</th>
                         <th>Artist</th>
-                        <th>Number Of Subscribers</th>
+                        <th>Number Of Plays</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,7 +45,7 @@
                     {
                         <tr>
                             <td>@song.Name</td>
-                            <td>@song.Artist.Name</td>
+                            <td>@Html.ActionLink(song.Artist.Name, "Details", "Details", new { username = song.Artist.Name }, null)</td>
                             <td>@song.NumberOfPlays</td>
                         </tr>
                     }

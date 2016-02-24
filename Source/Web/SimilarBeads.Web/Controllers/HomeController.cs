@@ -28,6 +28,7 @@
             return this.View(model);
         }
 
+        [HttpGet]
         [OutputCache(Duration = 24 * 60 * 60)]
         private HomeViewModel GetTopArtistsAndSongs()
         {

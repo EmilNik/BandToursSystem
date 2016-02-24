@@ -13,8 +13,6 @@
         {
         }
 
-        public IDbSet<City> Cities { get; set; }
-
         public IDbSet<Concert> Concerts { get; set; }
 
         public IDbSet<Genre> Genres { get; set; }
