@@ -39,7 +39,8 @@
             if (this.ModelState.IsValid)
             {
                 var entity = this.concerts.GetById(model.Id).FirstOrDefault();
-                //entity.Date = model.Date;
+
+                // entity.Date = model.Date;
                 entity.City = model.City;
                 this.concerts.UpdateConcert(entity);
 
