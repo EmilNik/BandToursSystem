@@ -8,6 +8,9 @@
 
     public static class AutocompleteHelpers
     {
+        private const string AutoCompleteControllerKey = "AutoCompleteController";
+        private const string AutoCompleteActionKey = "AutoCompleteAction";
+
         public static MvcHtmlString AutocompleteFor<TModel, TProperty>(this HtmlHelper<TModel> html, Expression<Func<TModel, TProperty>> expression, string actionName, string controllerName)
         {
             string autocompleteUrl = UrlHelper.GenerateUrl(
@@ -20,9 +23,6 @@
                                                            includeImplicitMvcValues: true);
             return html.TextBoxFor(expression, new { data_autocomplete_url = autocompleteUrl });
         }
-
-        private const string AutoCompleteControllerKey = "AutoCompleteController";
-        private const string AutoCompleteActionKey = "AutoCompleteAction";
 
         public static void SetAutoComplete(this ModelMetadata metadata, string controller, string action)
         {

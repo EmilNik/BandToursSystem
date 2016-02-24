@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - SimilarBeads</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/KendoCSS")
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/kendoJS")
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -20,19 +22,42 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = string.Empty }, null)</li>
-                    <li>@Html.ActionLink("Charts", "Charts", "Statistics", new { area = string.Empty }, null)</li>
-                    <li>@Html.ActionLink("Concerts", "Get", "Concerts", new { area = string.Empty }, null)</li>
+                    <li>@Html.ActionLink("See Top Artists", "TopArtists", "Charts", new { area = string.Empty }, null)</li>
+                    <li>@Html.ActionLink("See Top Songs", "TopSongs", "Charts", new { area = string.Empty }, null)</li>
                     @if (this.User.Identity.IsAuthenticated)
                     {
                         <li class="dropdown">
                             <a href="@Url.Action("Index", "Home", new { area = string.Empty })" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-hashpopup="true" aria-extended="false">
-                                <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                Music <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Search", "Index", "Search", new { area = string.Empty }, null)</li>
-                                <li>@Html.ActionLink("Radio", "Index", "Radio", new { area = string.Empty }, null)</li>
-                                <li>@Html.ActionLink("Your Music", "Index", "Music", new { area = string.Empty }, null)</li>
+                                <li>@Html.ActionLink("Concerts", "TopConcerts", "Concerts", new { area = string.Empty }, null)</li>
+                            </ul>
+                        </li>
+                    }
+
+                    @if (this.User.Identity.IsArtist())
+                    {
+                        <li class="dropdown">
+                            <a href="@Url.Action("Index", "Home", new { area = string.Empty })" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-hashpopup="true" aria-extended="false">
+                                Artist <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Add Songs", "AddSong", "Artists", new { area = "Artist" }, null)</li>
+                                <li>@Html.ActionLink("Add Concert", "AddConcert", "AddConcerts", new { area = "Artist" }, null)</li>
+                            </ul>
+                        </li>
+                    }
+
+                    @if (this.User.Identity.IsAdmin())
+                    {
+                        <li class="dropdown">
+                            <a href="@Url.Action("Index", "Home", new { area = string.Empty })" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-hashpopup="true" aria-extended="false">
+                                Admin <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Users", "Index", "UsersList", new { area = "Admin" }, null)</li>
+                                <li>@Html.ActionLink("Concerts", "Index", "ConcertsList", new { area = "Admin" }, null)</li>
                             </ul>
                         </li>
                     }
@@ -41,6 +66,10 @@
             </div>
         </div>
     </div>
+    @if (this.TempData["Notification"] != null)
+    {
+        <div class="alert alert-success" role="alert">@this.TempData["Notification"]</div>
+    }
     <div class="container body-content">
         @RenderBody()
         <hr />

@@ -2,6 +2,9 @@
 {
     using System.Collections.Generic;
 
+    using Artist;
+    using Song;
+
     public class HomeViewModel
     {
         public ICollection<SongViewModel> Songs { get; set; }

@@ -1,0 +1,29 @@
+﻿@using Kendo.Mvc.UI;
+<br />
+<br />
+@(Html.Kendo().Grid<SimilarBeads.Web.Areas.Admin.Models.Concerts.ConcertViewModel>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+          columns.Bound(c => c.City);
+          columns.Bound(c => c.Author);
+          columns.Bound(c => c.Date).Format("{0:yyyy-MM-dd}");
+          columns.Command(command => { command.Edit(); command.Destroy(); }).Width(180);
+      })
+      .ColumnMenu()
+      .Editable(editable => editable.Mode(GridEditMode.PopUp))
+      .Pageable()
+      .Navigatable()
+      .Sortable(sortable => {
+          sortable.SortMode(GridSortMode.SingleColumn);
+      })
+      .Filterable()
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Model(model => model.Id(p => p.Id))
+          .Read(read => read.Action("Concerts_Read", "ConcertsList"))
+          .Update(update => update.Action("Concerts_Update", "ConcertsList"))
+          .Destroy(destroy => destroy.Action("Concerts_Destroy", "ConcertsList"))
+      )
+)

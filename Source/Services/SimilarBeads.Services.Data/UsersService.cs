@@ -1,8 +1,8 @@
 ﻿namespace SimilarBeads.Services.Data
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Dynamic;
 
     using SimilarBeads.Data.Common;
     using SimilarBeads.Data.Models;
@@ -18,11 +18,12 @@
 
         public string UserIdByUsername(string username)
         {
-            return this.users
+            var result = this.users
                 .All()
-                .Where(u => u.Email == username)
+                .Where(u => u.Name == username)
                 .Select(u => u.Id)
                 .FirstOrDefault();
+            return result;
         }
 
         public bool UserIsArtist(string username)
@@ -47,7 +48,7 @@
         {
             return this.users
                 .All()
-                .Where(u => u.UserName == username);
+                .Where(u => u.Name == username);
         }
 
         public void UpdateUser(User user)
@@ -86,6 +87,31 @@
                 .Where(x => x.IsArtist)
                 .OrderByDescending(x => x.Subscribers)
                 .Take(numbberOfArtists);
+        }
+
+        public IQueryable<User> GetArtistsCharts(string orderBy, string contains = "")
+        {
+            return this.users.All()
+                .Where(x => x.IsArtist)
+                .OrderBy(orderBy)
+                .Where(x => x.Name.Contains(contains));
+        }
+
+        public IQueryable<User> GetAll()
+        {
+            return this.users.All();
+        }
+
+        public IQueryable<User> GetById(string id)
+        {
+            return this.users.All()
+                .Where(x => x.Id == id);
+        }
+
+        public void Delete(User user)
+        {
+            this.users.Delete(user);
+            this.users.SaveChanges();
         }
     }
 }

@@ -4,8 +4,9 @@
     using System.Web.Mvc;
 
     using BaseControllers;
+    using Common.Constants;
     using Data.Models;
-
+    using Microsoft.AspNet.Identity;
     using ViewModels.Account;
 
     public class RegisterController : AccountBaseController
@@ -25,10 +26,25 @@
         {
             if (this.ModelState.IsValid)
             {
-                var user = new User { Name = model.Name, Email = model.Email, UserName = model.Email };
+                var user = new User();
+                if (model.IsArtist)
+                {
+                    user.IsArtist = true;
+                }
+
+                user.Name = model.Name;
+                user.Email = model.Email;
+                user.UserName = model.Email;
                 var result = await this.UserManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
+                    if (model.IsArtist)
+                    {
+                        this.UserManager.AddToRole(user.Id, GlobalRolesConstants.ArtistRoleName);
+                        user.IsArtist = true;
+                    }
+
                     await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

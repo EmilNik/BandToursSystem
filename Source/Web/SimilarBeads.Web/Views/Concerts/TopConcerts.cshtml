@@ -1,0 +1,60 @@
+﻿@model SimilarBeads.Web.ViewModels.Charts.ChartsTopConcertsViewModel
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Top Concerts";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("TopConcerts", "Concerts", FormMethod.Get))
+{
+    <p>
+        Find by artist: @Html.TextBox("Concerts", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" class="btn btn-default" />
+    </p>
+}
+
+@using (Html.BeginForm("TopConcerts", "Concerts", FormMethod.Get))
+{
+    <p>
+        Find by city: @Html.TextBox("SearchString", ViewBag.CurrentCity as string)
+        <input type="submit" value="Search" class="btn btn-default" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Date", "TopConcerts", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter, currentCity = ViewBag.CurrentCity })
+        </th>
+        <th>
+            @Html.ActionLink("Artist", "TopConcerts", new { sortOrder = ViewBag.ArtistSortParam, currentFilter = ViewBag.CurrentFilter, currentCity = ViewBag.CurrentCity })
+        </th>
+        <th>
+            @Html.ActionLink("City", "TopConcerts", new { sortOrder = ViewBag.CitySortParam, currentFilter = ViewBag.CurrentFilter, currentCity = ViewBag.CurrentCity })
+        </th>
+        <th></th>
+    </tr>
+
+
+    @foreach (var item in Model.Concerts)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.ActionLink(item.Artist, "Details", "Details", new { username = item.Artist }, null)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+        </tr>
+    }
+
+</table>
+<br />
+    Page @(Model.TotalPages < Model.CurrentPage ? 0 : Model.CurrentPage) of @Model.TotalPages
+
+    @Html.PagedListPager(Model.Concerts, page => Url.Action("TopConcerts",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, currentCity = ViewBag.CurentCity}))

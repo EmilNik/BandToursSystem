@@ -28,10 +28,6 @@
         [MaxLength(30)]
         public string Name { get; set; }
 
-        public int? CityId { get; set; }
-
-        public virtual City City { get; set; }
-
         public bool IsArtist { get; set; }
 
         public bool IsAdmin { get; set; }
@@ -74,6 +70,10 @@
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
 
             // Add custom user claims here
+            userIdentity.AddClaim(new Claim("IsArtist", this.IsArtist.ToString()));
+            userIdentity.AddClaim(new Claim("IsAdmin", this.IsAdmin.ToString()));
+            userIdentity.AddClaim(new Claim("Name", this.Name));
+
             return userIdentity;
         }
     }

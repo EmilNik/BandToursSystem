@@ -1,0 +1,67 @@
+﻿@model SimilarBeads.Web.ViewModels.User.UserProfileViewModel
+@{
+    ViewBag.Title = "Details";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-2 col-sm-12">
+            <h2>@Model.Name</h2>
+            <p>@Model.UserName</p>
+            @if (this.User.Identity.GetName() == Model.Name)
+            {
+                <h4>@Model.Subscribers Subscribers</h4>
+                @Html.ActionLink("Manage your Account", "Index", "Manage", routeValues: new { area = string.Empty }, htmlAttributes: new { title = "Manage" })
+            }
+            else
+            {
+                <a id="subscribe" class="btn btn-primary" data-username="@Model.Name">Subscribe (@Model.Subscribers)</a>
+            }
+        </div>
+        <div class="col-md-10 col-sm-12">
+            @if (Model.Songs.Any())
+            {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Song name</th>
+                            <th>Times Played</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var song in Model.Songs)
+                        {
+                            <tr id="@song.Id">
+                                <td>@song.Name</td>
+                                <td id="number-of-plays">@song.NumberOfPlays</td>
+                                <td><button id="play-song" data-id="@song.Id" class="btn btn-default"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button></td>
+                                @if (this.User.Identity.GetName() == Model.Name)
+                                {
+                                    <td><button id="delete-song" data-id="@song.Id" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <h2>This user has no songs yet</h2>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#subscribe').click(function () {
+        $.post("/Details/Subscribe", { username: $('#subscribe').attr('data-username') }, function (data) {
+            $('#subscribe').html('Subscribe (' + data.Count + ')');
+        })
+    });
+
+    $('#play-song').click(function () {
+        var id = $(this).attr('data-id')
+        $.post("/Details/PlaySong", { id: id }, function (data) {
+            $('#' + id + ' #number-of-plays').html(data.Count);
+        })
+    })
+</script>

@@ -1,0 +1,52 @@
+﻿@model SimilarBeads.Web.ViewModels.Charts.ChartsTopSongsViewModel
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Top Songs";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("TopSongs", "Charts", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" class="btn btn-default" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Songs Name", "TopSongs", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("Artist Name", "TopSongs", new { sortOrder = ViewBag.SongsPlaysSortParam, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("Times Played", "TopSongs", new { sortOrder = ViewBag.SubscribersSortParam, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th></th>
+    </tr>
+
+
+    @foreach (var item in Model.Songs)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink(item.ArtistName, "Details", "Details", new { username = item.ArtistName }, null)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfPlays)
+            </td>
+        </tr>
+    }
+
+</table>
+<br />
+    Page @(Model.TotalPages < Model.CurrentPage ? 0 : Model.CurrentPage) of @Model.TotalPages
+
+    @Html.PagedListPager(Model.Songs, page => Url.Action("TopSongs",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
